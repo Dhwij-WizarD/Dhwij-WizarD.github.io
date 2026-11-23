@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dhwij Patil | Robotics Engineer & M.Tech Scholar at IIT Jodhpur - Portfolio inspired by Fastfolio" />
+  <meta name="author" content="Dhwij Patil" />
+
+  <title>Dhwij Patil | Robotics Engineer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <!-- Moving Background Elements (Preserving exact #141414 page background) -->
+  <div class="ambient-background" aria-hidden="true">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+    <div class="ambient-orb orb-4"></div>
+    <div class="ambient-orb orb-5"></div>
+    <canvas id="ambient-nodes-canvas"></canvas>
+
+    <!-- Drone 1 (Using User's Drone Graphic - Ambient Patrol Top Right) -->
+    <div class="ambient-graphic ambient-drone drone-primary">
+      <div class="drone-wrapper">
+        <img src="./assets/images/drone_user_white.png" alt="" class="drone-silhouette" />
+        <div class="drone-scan-beam"></div>
+        <div class="drone-ping-wave"></div>
+      </div>
+    </div>
+
+    <!-- Drone 2 (Using User's Drone Graphic - Ambient Scout Mid Left) -->
+    <div class="ambient-graphic ambient-drone drone-secondary">
+      <div class="drone-wrapper">
+        <img src="./assets/images/drone_user_white.png" alt="" class="drone-silhouette" />
+        <div class="drone-scan-beam"></div>
+      </div>
+    </div>
+
+    <!-- Articulated Robotic Arm (Ambient Manipulator - Bottom Right) -->
+    <div class="ambient-graphic ambient-robot-arm">
+      <svg class="robot-arm-svg" viewBox="0 0 240 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Fixed Base Mount -->
+        <g class="arm-base-group">
+          <rect x="110" y="242" width="80" height="12" rx="3" fill="rgba(255, 255, 255, 0.05)" stroke="#38bdf8" stroke-width="1.4"/>
+          <circle cx="120" cy="248" r="2" fill="rgba(255, 255, 255, 0.4)"/>
+          <circle cx="180" cy="248" r="2" fill="rgba(255, 255, 255, 0.4)"/>
+          <!-- Pedestal Turret -->
+          <path d="M 125 242 L 134 218 L 166 218 L 175 242 Z" fill="rgba(20, 20, 20, 0.85)" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1.2"/>
+          <line x1="138" y1="228" x2="162" y2="228" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1" stroke-dasharray="2 2"/>
+        </g>
+
+        <!-- Joint 1: Base Turret Pivot / Shoulder Hub -->
+        <circle cx="150" cy="210" r="14" fill="#18181b" stroke="#38bdf8" stroke-width="1.6"/>
+        <circle cx="150" cy="210" r="5" fill="#38bdf8"/>
+
+        <!-- Articulated Kinematic Chain (Nested Groups for Natural Forward Kinematics) -->
+        <g class="arm-joint-shoulder">
+          <!-- Bicep Link / Lower Arm Truss -->
+          <line x1="150" y1="210" x2="105" y2="115" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="157" y1="213" x2="112" y2="118" stroke="rgba(56, 189, 248, 0.5)" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Structural Truss Brackets -->
+          <line x1="140" y1="185" x2="147" y2="188" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1"/>
+          <line x1="127" y1="155" x2="134" y2="158" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1"/>
+          <!-- Hydraulic Cylinder -->
+          <line x1="162" y1="225" x2="124" y2="150" stroke="rgba(56, 189, 248, 0.7)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Joint 2: Elbow Housing -->
+          <circle cx="105" cy="115" r="11" fill="#18181b" stroke="#38bdf8" stroke-width="1.6"/>
+          <circle cx="105" cy="115" r="4" fill="#38bdf8"/>
+
+          <!-- Forearm Assembly -->
+          <g class="arm-joint-elbow">
+            <!-- Forearm Beam -->
+            <line x1="105" y1="115" x2="60" y2="65" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="108" y1="111" x2="63" y2="61" stroke="rgba(56, 189, 248, 0.45)" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="82" cy="90" r="2" fill="rgba(56, 189, 248, 0.6)"/>
+
+            <!-- Joint 3: Wrist Housing -->
+            <circle cx="60" cy="65" r="7.5" fill="#18181b" stroke="#38bdf8" stroke-width="1.4"/>
+            <circle cx="60" cy="65" r="2.5" fill="#ffffff"/>
+
+            <!-- End Effector / Gripper Assembly -->
+            <g class="arm-joint-wrist">
+              <!-- Gripper Collar -->
+              <line x1="60" y1="65" x2="48" y2="52" stroke="rgba(255, 255, 255, 0.7)" stroke-width="2" stroke-linecap="round"/>
+              <rect x="44" y="48" width="8" height="6" rx="1" transform="rotate(42 48 51)" fill="rgba(56, 189, 248, 0.4)" stroke="#38bdf8" stroke-width="1"/>
+              <!-- Gripper Finger Top -->
+              <path d="M 44 47 L 32 37 L 27 41" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Gripper Finger Bottom -->
+              <path d="M 49 53 L 37 43 L 32 47" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Laser Guide / Alignment Dot -->
+              <line x1="29" y1="39" x2="-15" y2="10" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1" stroke-dasharray="3 3"/>
+              <circle cx="-15" cy="10" r="2.5" fill="#38bdf8" opacity="0.6"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Floating Pill Navigation (Fastfolio Style) -->
+  <div class="floating-nav-wrapper">
+    <nav class="floating-nav" aria-label="Main Navigation">
+      <a href="#hero" class="nav-profile">
+        <div class="nav-avatar">
+          <img src="./assets/images/profile.png" alt="Dhwij Patil" class="nav-avatar-img" />
+        </div>
+        <div class="nav-name-group">
+          <span class="nav-name">Dhwij Patil</span>
+          <span class="nav-status">
+            <span class="nav-status-dot"></span>
+            Available for roles
+          </span>
+        </div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#education" class="nav-item-link">Education</a></li>
+        <li><a href="#projects" class="nav-item-link">Projects</a></li>
+        <li><a href="#experience" class="nav-item-link">Experience</a></li>
+        <li><a href="#honors" class="nav-item-link">Honors</a></li>
+        <li><a href="#skills" class="nav-item-link">Skills</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Dark/Light Mode Switcher -->
+        <button id="theme-toggle" class="theme-toggle-pill" aria-label="Toggle Theme" title="Toggle Theme">
+          <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <!-- Contact Me Pill CTA -->
+        <a href="#contact" class="btn-pill-contact">Contact Me</a>
+      </div>
+    </nav>
+  </div>
+
+  <main class="page-container">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="hero-grid-split">
+
+        <!-- Left: Headline & Bio -->
+        <div class="hero-content">
+          <div class="hero-status-pill">
+            <span class="nav-status-dot"></span>
+            <span>Available for research &amp; robotics engineering roles</span>
+          </div>
+
+          <h1 class="hero-h1">Robotics Engineer.</h1>
+
+          <p class="hero-bio-lead">
+            Hi, I’m <strong>Dhwij Patil</strong>, a robotics engineer and M.Tech researcher at <strong>IIT Jodhpur</strong> 
+            building fast, intelligent autonomous systems. I focus on bio-inspired hybrid UAVs, motion planning, 
+            Visual-Inertial Odometry, ROS2, and embedded physical simulations.
+          </p>
+
+          <div class="hero-cta-bar">
+            <a href="#projects" class="btn-fast-primary">
+              <span>See my works</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+            </a>
+
+            <a href="#contact" class="btn-fast-secondary">
+              <span>Contact Me</span>
+            </a>
+
+            <a href="./Dhwij_Patil_CV.pdf" download class="btn-fast-secondary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Download CV</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Modern Profile Card -->
+        <div class="hero-photo-col">
+          <div class="profile-card-modern">
+            <div class="profile-card-squircle">
+              <img src="./assets/images/profile.png" alt="Dhwij Patil" class="profile-card-img" />
+            </div>
+            <div class="profile-card-meta">
+              <div class="profile-card-name-row">
+                <h3 class="profile-card-name">Dhwij Patil</h3>
+                <svg class="profile-sparkle-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" />
+                </svg>
+              </div>
+              <p class="profile-card-role">Robotics Engineer</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Highlights Strip -->
+      <div id="fast-metrics-container" class="fast-metrics-row"></div>
+    </section>
+
+    <!-- Education Section ("Academic Foundation") -->
+    <section id="education">
+      <span class="section-tag">EDUCATION</span>
+      <h2 class="section-title">Academic Foundation</h2>
+      <!-- <p class="section-desc">Interdisciplinary technical training bridging Computer Science and Mechanical Robotics.</p> -->
+
+      <div id="education-container" class="edu-cards-grid"></div>
+    </section>
+
+    <!-- Projects Section ("Projects I’ve Shipped") -->
+    <section id="projects">
+      <span class="section-tag">PROJECTS</span>
+      <h2 class="section-title">Projects I’ve Shipped</h2>
+      <p class="section-desc">A range of projects demonstrating how I turn mathematical kinematics, perception algorithms, and CAD designs into functional robotics systems.</p>
+
+      <!-- Category Filter Pills -->
+      <div class="project-filter-pill-bar">
+        <button class="filter-pill active" data-filter="all">All Projects (11)</button>
+        <button class="filter-pill" data-filter="thesis">Thesis &amp; Aerial</button>
+        <button class="filter-pill" data-filter="slam">SLAM &amp; Vision</button>
+        <button class="filter-pill" data-filter="sim">Robotics &amp; Sim</button>
+        <button class="filter-pill" data-filter="embedded">Hardware &amp; Embedded</button>
+      </div>
+
+      <!-- Projects Dynamic List -->
+      <div id="projects-container" class="projects-flow"></div>
+    </section>
+
+    <!-- Experience Section ("Where I’ve Worked") -->
+    <section id="experience">
+      <span class="section-tag">EXPERIENCE</span>
+      <h2 class="section-title">Where I’ve Worked</h2>
+      <!-- <p class="section-desc">A summary of my professional journey in robotics research, industrial automation, and engineering leadership.</p> -->
+
+      <div id="experience-container" class="experience-list"></div>
+
+      <!-- Large CV Download Bar below Experience -->
+      <div class="exp-cv-download-bar">
+        <a href="./Dhwij_Patil_CV.pdf" download class="btn-fast-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Download My Complete CV</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Honors & Hackathons ("Don't just take my word for it") -->
+    <section id="honors">
+      <span class="section-tag">HONORS &amp; AWARDS</span>
+      <h2 class="section-title">Achievements</h2>
+      <!-- <p class="section-desc">Competitive accolades in autonomous robotics innovation, national hackathons, and algorithmic problem solving.</p> -->
+
+      <div id="awards-container" class="awards-grid"></div>
+    </section>
+
+    <!-- Tech Stack Section ("Tools I Build With") -->
+    <section id="skills">
+      <span class="section-tag">TECH STACK</span>
+      <h2 class="section-title">Tools I Build With</h2>
+      <!-- <p class="section-desc">A curated set of technologies, robotics frameworks, and mathematical perception domains I rely on to engineer modern autonomous systems and simulations.</p> -->
+
+      <!-- Curated Tools Tiles (Fastfolio Style) -->
+      <div id="tech-stack-container" class="tech-grid"></div>
+    </section>
+
+    <!-- Comprehensive Technical Skills Matrix (Driven by data.js skills array) -->
+    <section id="skills-matrix">
+      <span class="section-tag">DOMAINS &amp; EXPERTISE</span>
+      <h2 class="section-title">Complete Skills &amp; Domain Expertise</h2>
+      <p class="section-desc">Detailed breakdown across robotics algorithms, simulation frameworks, programming, and embedded hardware.</p>
+      <div id="skills-matrix-container" class="skills-categories-flow"></div>
+    </section>
+
+    <!-- Footer CTA ("Let’s Build Something Great") -->
+    <section id="contact" style="padding-bottom: 40px;">
+      <div class="footer-cta-card">
+        <h2 class="cta-h2">Let’s Build Something Great</h2>
+        <p class="cta-p">
+          Interested in collaborating on autonomous robotics, bio-inspired UAV research, or engineering roles? 
+          Let’s bring ideas to life with thoughtful engineering and robust code.
+        </p>
+
+        <div class="cta-buttons-row">
+          <a href="mailto:dhwijpatil910@gmail.com" class="btn-fast-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Email Me</span>
+          </a>
+
+          <a href="https://linkedin.com/in/dhwij-patil" target="_blank" rel="noopener noreferrer" class="btn-fast-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            <span>LinkedIn Profile</span>
+          </a>
+
+          <a href="https://github.com/Dhwij-WizarD" target="_blank" rel="noopener noreferrer" class="btn-fast-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            <span>GitHub (Dhwij-WizarD)</span>
+          </a>
+
+          <!-- <button class="btn-fast-secondary copy-trigger" data-copy="+918983544545">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span>Copy Phone Number</span>
+          </button> -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Footer -->
+  <footer class="site-footer">
+    <div class="page-container footer-inner">
+      <div>
+        <span>&copy; 2026 Dhwij Patil. All Rights Reserved.</span>
+        <!-- <span style="display:block; font-size: 0.78rem; margin-top: 2px;">IIT Jodhpur • Robotics &amp; Autonomous Systems</span> -->
+      </div>
+
+      <div class="footer-links-list">
+        <a href="https://github.com/Dhwij-WizarD" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://linkedin.com/in/dhwij-patil" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:dhwijpatil910@gmail.com">Email</a>
+        <a href="#hero">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Project Detail & Demo Modal Window (Enlarged Video & Project Details) -->
+  <div id="lightbox-modal" class="lightbox-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lightbox-content">
+      <div class="lightbox-header">
+        <div class="lightbox-title-group">
+          <div class="lightbox-badge-row">
+            <span id="lightbox-badge" class="lightbox-badge">Robotics Demo</span>
+            <span id="lightbox-year" class="lightbox-year">2026</span>
+          </div>
+          <h3 id="lightbox-title" class="lightbox-title">Project Title</h3>
+          <span id="lightbox-subtitle" class="lightbox-subtitle">Project Subtitle</span>
+        </div>
+        <button id="lightbox-close" class="lightbox-close" aria-label="Close Preview">&times;</button>
+      </div>
+
+      <div class="lightbox-scrollable-body">
+        <!-- Big Video / Media Theater Window -->
+        <div id="lightbox-body" class="modal-theater-window"></div>
+
+        <!-- Optional Gallery Strip (Switch between video demo & additional images) -->
+        <div id="lightbox-gallery" class="modal-gallery-strip" style="display: none;"></div>
+
+        <!-- Technical Caption Callout -->
+        <div id="lightbox-caption" class="modal-caption-box"></div>
+
+        <!-- Detailed Project Overview -->
+        <div class="modal-details-grid">
+          <p id="lightbox-desc" class="modal-desc-text"></p>
+          <ul id="lightbox-bullets" class="modal-bullets-list"></ul>
+          <div id="lightbox-tags" class="modal-tags-row"></div>
+          <div id="lightbox-actions" class="modal-actions-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-pill">Notification</div>
+
+  <!-- Modular Scripts -->
+  <script src="./data.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
