@@ -542,7 +542,7 @@ function initLightbox() {
       if (activeItem.type === 'video') {
         const vType = (activeItem.src && activeItem.src.endsWith('.webm')) ? 'video/webm' : 'video/mp4';
         bodyEl.innerHTML = `
-          <video id="modal-active-video" controls autoplay playsinline preload="auto" poster="${activeItem.poster || ''}" src="${activeItem.src}">
+          <video id="modal-active-video" controls autoplay muted playsinline preload="auto" poster="${activeItem.poster || ''}" src="${activeItem.src}">
             <source src="${activeItem.src}" type="${vType}">
             Your browser does not support HTML5 video.
           </video>
