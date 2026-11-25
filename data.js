@@ -111,7 +111,7 @@ const PORTFOLIO_DATA = {
       badge: "Active Master's Thesis • IIT Jodhpur",
       duration: "2025 – Present",
       featured: true,
-      visible: true,
+      visible: false,
       description: "Novel bio-inspired hybrid unmanned aerial vehicle (UAV) engineered to execute both aerial flight and terrestrial walking locomotion. Solves the core mobility limitations of traditional drones and legged robots in cluttered, unstructured environments.",
       bullets: [
         "Synthesizing biological flight and walking mechanisms into a unified, lightweight robotic frame using Fusion360.",
