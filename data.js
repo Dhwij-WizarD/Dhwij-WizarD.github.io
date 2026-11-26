@@ -19,9 +19,9 @@ const PORTFOLIO_DATA = {
   profile: {
     name: "Dhwij Patil",
     role: "Robotics Engineer & M.Tech Scholar",
-    tagline: "Autonomous Robotics, Bio-inspired UAVs, SLAM & Embedded Systems",
+    tagline: "Autonomous Robotics, Motion Planning, SLAM & Embedded Systems",
     statusText: "M.Tech Robotics Researcher @ IIT Jodhpur",
-    bio: "Bridging mechanical kinematics and computer science algorithms. Currently researching novel hybrid bio-inspired flying and walking UAVs at IIT Jodhpur, with demonstrated expertise in motion planning, SLAM/VIO, ROS2, MuJoCo physical simulations, and real-time embedded systems.",
+    bio: "Bridging mechanical kinematics and computer science algorithms. M.Tech Robotics researcher at IIT Jodhpur with demonstrated expertise in motion planning, SLAM/VIO, ROS2, MuJoCo physical simulations, and real-time embedded systems.",
     email: "dhwijpatil910@gmail.com",
     phone: "+91 8983544545",
     linkedin: "https://linkedin.com/in/dhwij-patil",
@@ -41,8 +41,8 @@ const PORTFOLIO_DATA = {
   pillars: [
     {
       icon: "uav",
-      title: "Hybrid UAVs & Locomotion",
-      desc: "Bio-inspired aerial and terrestrial mechanics, drone fabrication, multi-terrain locomotion dynamics."
+      title: "Locomotion & Kinematics",
+      desc: "Aerial and terrestrial mechanics, drone fabrication, legged kinematics, and multi-terrain dynamics."
     },
     {
       icon: "sim",
@@ -103,36 +103,6 @@ const PORTFOLIO_DATA = {
 
   // Projects & Public Repositories (Supports Images, Videos, & YouTube Embeds!)
   projects: [
-    {
-      id: "bio-uav",
-      title: "Bio-inspired Flying and Walking UAV",
-      subtitle: "UAV Design • Multi-Terrain Locomotion • Adaptive Control Architectures",
-      category: "thesis",
-      badge: "Active Master's Thesis • IIT Jodhpur",
-      duration: "2025 – Present",
-      featured: true,
-      visible: false,
-      description: "Novel bio-inspired hybrid unmanned aerial vehicle (UAV) engineered to execute both aerial flight and terrestrial walking locomotion. Solves the core mobility limitations of traditional drones and legged robots in cluttered, unstructured environments.",
-      bullets: [
-        "Synthesizing biological flight and walking mechanisms into a unified, lightweight robotic frame using Fusion360.",
-        "Developing adaptive control architectures and transition kinematics for seamless, dynamic mode switching between flight and walking.",
-        "Optimizing multi-terrain energy consumption to prolong operational mission endurance."
-      ],
-      tags: ["UAV Design", "Multi-Terrain Locomotion", "Adaptive Control", "Fusion360", "Aerodynamics"],
-      media: {
-        type: "image",
-        src: "./assets/images/mtp_1.png",
-        alt: "Bio-inspired Flying and Walking UAV Schematic",
-        caption: "CAD schematic of the hybrid dual-mode locomotion architecture"
-      },
-      gallery: [
-        { type: "image", src: "./assets/images/mtp_1.png", title: "MTP CAD Model", caption: "CAD schematic of the hybrid dual-mode locomotion architecture" },
-        { type: "image", src: "./assets/images/bio_uav.png", title: "Dual-Mode Diagram", caption: "Biological flight and terrestrial walking kinematics blueprint" }
-      ],
-      links: [
-        { label: "View Profile", url: "https://github.com/Dhwij-WizarD", icon: "github" }
-      ]
-    },
     {
       id: "neurorobotics-hackathon",
       title: "1st Rank — NeuroRobotics Hackathon 2026",

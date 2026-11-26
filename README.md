@@ -19,8 +19,8 @@ A high-performance, minimalist, editorial personal portfolio website engineered 
 
 - **Expanded Content Layout & 2-Column Project Grid**:
   - Optimized container width (`max-width: 980px`) providing generous editorial breathing room.
-  - **2-Column Responsive Project Grid** with enlarged 16:9 media cards (`~410px × 231px`), showing bio-inspired UAVs, VIO ROS 2 pipelines, 2D SLAM, differential bots, pick-and-place manipulators, and hexapods.
-  - Interactive category filter pills (`All Projects (11)`, `Thesis & Aerial`, `SLAM & Vision`, `Robotics & Sim`, `Hardware & Embedded`) with dynamic badge counts.
+  - **2-Column Responsive Project Grid** with enlarged 16:9 media cards (`~410px × 231px`), showing VIO ROS 2 pipelines, 2D SLAM, differential bots, pick-and-place manipulators, and hexapods.
+  - Interactive category filter pills (`All Projects (10)`, `SLAM & Vision`, `Robotics & Sim`, `Hardware & Embedded`) with dynamic badge counts.
   - Full-screen image lightbox modal for inspecting CAD schematics and system architectures.
 
 - **Modular Data-Driven Configuration (`data.js`)**:
@@ -50,7 +50,6 @@ resume/
     │   └── images/             # Vector SVGs, profile photo, and drone graphics
     │       ├── profile.png
     │       ├── drone_user_white.png
-    │       ├── bio_uav.png
     │       ├── vio_ros2.png
     │       ├── slam_2d.png
     │       └── ...

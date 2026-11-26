@@ -124,7 +124,7 @@ function renderProjects(projects) {
 
   container.innerHTML = visibleProjects.map(p => {
     const isFeatured = !!p.featured;
-    const mediaSrc = p.media?.src || './assets/images/bio_uav.png';
+    const mediaSrc = p.media?.src || './assets/images/vio_ros2.png';
     const mediaType = p.media?.type || 'image';
     const mediaAlt = p.media?.alt || p.title;
 
@@ -494,7 +494,7 @@ function initLightbox() {
     } else if (p.media) {
       items = [p.media];
     } else {
-      items = [{ type: 'image', src: './assets/images/bio_uav.png', title: p.title }];
+      items = [{ type: 'image', src: './assets/images/vio_ros2.png', title: p.title }];
     }
 
     // Gallery selector strip
